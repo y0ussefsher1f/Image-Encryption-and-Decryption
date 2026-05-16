@@ -125,10 +125,12 @@ def aes_encrypt(image_bytes: bytes, password: str) -> dict:
 
     return {
         "encrypted_bytes": encrypted_output,        # Real AES ciphertext
+        "pure_aes_payload": aes_payload,            # Just IV + ciphertext
         "visual_preview": visual_preview,           # For UI display only
         "encryption_time": round(elapsed * 1000, 2),
         "original_size": len(image_bytes),
         "encrypted_size": len(encrypted_output),
+        "pure_aes_size": len(aes_payload),
         "key_size_bits": AES_KEY_SIZE * 8,          # 256
         "iv": iv.hex(),                             # For display purposes
         "image_width": img.width,

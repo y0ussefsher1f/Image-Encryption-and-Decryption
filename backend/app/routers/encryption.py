@@ -77,6 +77,7 @@ async def encrypt_image(
                 "algorithm": "AES-256-CBC",
                 "encrypted_preview": bytes_to_base64(result["visual_preview"]),   # Visual simulation
                 "encrypted_data": bytes_to_base64(result["encrypted_bytes"], "image/png"),
+                "pure_aes_data": bytes_to_base64(result["pure_aes_payload"], "application/octet-stream"),
                 "stats": {
                     "encryption_time_ms": result["encryption_time"],
                     "original_size_bytes": result["original_size"],

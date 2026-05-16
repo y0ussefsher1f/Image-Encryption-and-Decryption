@@ -164,6 +164,7 @@ function EncryptionPage() {
   // Results
   const [encryptedPreview, setEncryptedPreview]   = useState(null)
   const [encryptedData, setEncryptedData]         = useState(null)
+  const [pureAesData, setPureAesData]             = useState(null)
   const [decryptedPreview, setDecryptedPreview]   = useState(null)
   const [encryptStats, setEncryptStats]           = useState(null)
   const [decryptStats, setDecryptStats]           = useState(null)
@@ -188,6 +189,7 @@ function EncryptionPage() {
     setEncryptedPreview(null)
     setDecryptedPreview(null)
     setEncryptedData(null)
+    setPureAesData(null)
     setEncryptStats(null)
     setDecryptStats(null)
     setLogs([])
@@ -235,6 +237,7 @@ function EncryptionPage() {
     setProgress(0)
     setEncryptedPreview(null)
     setDecryptedPreview(null)
+    setPureAesData(null)
     setEncryptStats(null)
     addLog(`Starting ${algorithm.toUpperCase()} encryption...`, 'info')
 
@@ -250,6 +253,9 @@ function EncryptionPage() {
 
       setEncryptedPreview(res.data.encrypted_preview)
       setEncryptedData(res.data.encrypted_data)
+      if (res.data.pure_aes_data) {
+        setPureAesData(res.data.pure_aes_data)
+      }
       setEncryptStats(res.data.stats)
       addLog(`✓ Encryption complete — ${res.data.algorithm}`, 'success')
       addLog(`  Time: ${res.data.stats.encryption_time_ms}ms`, 'success')
@@ -451,15 +457,38 @@ function EncryptionPage() {
             <div className="glass-card p-4 space-y-3">
               <h3 className="text-xs font-semibold text-cyber-muted uppercase tracking-wider">Encryption Stats</h3>
               <StatsGrid stats={encryptStats} />
-              <button
-                id="download-encrypted"
-                onClick={() => downloadFile(encryptedData, `encrypted_${algorithm}.png`)}
-                className="w-full flex items-center justify-center gap-2 py-2 rounded-lg
-                  border border-cyber-border text-cyber-muted text-xs
-                  hover:border-cyber-cyan/30 hover:text-cyber-cyan transition-all"
-              >
-                <Download size={13} /> Download Encrypted File
-              </button>
+              {algorithm === 'aes' ? (
+                <div className="flex flex-col gap-2">
+                  <button
+                    id="download-encrypted-stego"
+                    onClick={() => downloadFile(encryptedData, `encrypted_${algorithm}_stego.png`)}
+                    className="w-full flex items-center justify-center gap-2 py-2 rounded-lg
+                      border border-cyber-border text-cyber-muted text-xs
+                      hover:border-cyber-cyan/30 hover:text-cyber-cyan transition-all"
+                  >
+                    <Download size={13} /> Download Stego Image
+                  </button>
+                  <button
+                    id="download-encrypted-bin"
+                    onClick={() => downloadFile(pureAesData, `encrypted_${algorithm}.bin`)}
+                    className="w-full flex items-center justify-center gap-2 py-2 rounded-lg
+                      border border-cyber-border text-cyber-muted text-xs
+                      hover:border-cyber-cyan/30 hover:text-cyber-cyan transition-all"
+                  >
+                    <Download size={13} /> Download BIN File Only
+                  </button>
+                </div>
+              ) : (
+                <button
+                  id="download-encrypted"
+                  onClick={() => downloadFile(encryptedData, `encrypted_${algorithm}.png`)}
+                  className="w-full flex items-center justify-center gap-2 py-2 rounded-lg
+                    border border-cyber-border text-cyber-muted text-xs
+                    hover:border-cyber-cyan/30 hover:text-cyber-cyan transition-all"
+                >
+                  <Download size={13} /> Download Encrypted File
+                </button>
+              )}
             </div>
           )}
 
