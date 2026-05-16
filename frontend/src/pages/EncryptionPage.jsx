@@ -52,7 +52,7 @@ function DropZone({ onFile, file, accept, hint, dropText, id = 'dropzone' }) {
           <p className="text-cyber-text font-medium">
             {isDragActive ? 'Drop the file here...' : (dropText ?? 'Drag & drop an image')}
           </p>
-          <p className="text-cyber-muted text-sm">{hint ?? 'PNG, JPG, BMP · Max 10MB'}</p>
+          <p className="text-cyber-muted text-sm">{hint ?? 'PNG, JPG, BMP · Max 50MB'}</p>
         </div>
       )}
     </div>
