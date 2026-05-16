@@ -21,7 +21,7 @@ function DropZone({ onFile, file, accept, hint, dropText, id = 'dropzone' }) {
     onDrop,
     accept: resolvedAccept,
     maxFiles: 1,
-    maxSize: 10 * 1024 * 1024,
+    maxSize: 50 * 1024 * 1024,
   })
 
   return (

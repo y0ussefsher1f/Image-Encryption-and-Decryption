@@ -138,7 +138,7 @@ function AnalyticsPage() {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: { 'image/png': [], 'image/jpeg': [], 'image/bmp': [] },
-    maxFiles: 1, maxSize: 10 * 1024 * 1024,
+    maxFiles: 1, maxSize: 50 * 1024 * 1024,
   })
 
   const handleGenKey = async () => {

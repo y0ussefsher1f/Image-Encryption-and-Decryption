@@ -124,7 +124,7 @@ Frontend runs at: http://localhost:5173
 - JPG / JPEG
 - BMP
 
-Max file size: **10 MB**
+Max file size: **50 MB**
 
 ## Pages
 
